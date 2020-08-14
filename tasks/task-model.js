@@ -21,8 +21,8 @@ function addTask(task) {
 //findTasks
 function findTasks() {
     return db('tasks')
-        .select('tasks.*')
-        .join('projects', 'projects.id', 'tasks.project_id')
+    .join('projects', 'projects.id', '=', 'tasks.project_id')
+    .select('projects.name', 'projects.id', 'projects.description', 'tasks.description')
 }
 
 //findTaskById

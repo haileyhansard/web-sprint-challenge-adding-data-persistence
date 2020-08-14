@@ -3,7 +3,8 @@ const db = require('../data/db-config');
 module.exports = {
     addProject,
     findProjects,
-    findProjectById
+    findProjectById,
+    findTasksForProject
 }
 
 function addProject(project) {
@@ -24,4 +25,13 @@ function findProjectById(id) {
     return db('projects')
         .where({ id })
         .first()
+}
+
+//use /api/projects/1/tasks
+function findTasksForProject(id) {
+    return db('tasks')
+        .where({ project_id: id })
+        .join('projects', 'projects.id', '=', 'tasks.project_id')
+        .select('projects.name', 'projects.description', 'tasks.description', 'tasks.notes')
+        // .orderBy('tasks.id')
 }
