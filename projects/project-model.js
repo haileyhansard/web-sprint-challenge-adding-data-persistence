@@ -3,7 +3,7 @@ const db = require('../data/db-config');
 module.exports = {
     addProject,
     findProjects,
-    findProjectsById
+    findProjectById
 }
 
 function addProject(project) {
@@ -12,7 +12,7 @@ function addProject(project) {
         .returning('id')
         .then(ids => {
             const id = ids[0]
-            return findById(id);
+            return findProjectById(id);
         });
 }
 
@@ -20,7 +20,7 @@ function findProjects() {
     return db('projects');
 }
 
-function findProjectsById(id) {
+function findProjectById(id) {
     return db('projects')
         .where({ id })
         .first()
